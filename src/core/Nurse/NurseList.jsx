@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { UserContext } from "../../App";
 
 import {
     Box,
@@ -29,11 +30,26 @@ import "./nurseStyle.css";
 import NurseDownload from "./NurseDownload";
 
 const NurseList = () => {
+    const { api_url } = useContext(UserContext);
 
     const [rows, setRows] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [drawer, setDrawer] = useState({});
     const [selectedRow, setSelectedRow] = useState({});
+
+    const fetchNurseList = () => {
+        fetch(`${api_url}nurse`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data)
+            setRows(data)})
+          .catch(error => console.error('Error fetching data:', error));
+    };
 
     const handleDrawer = (name, action, value) => {
         setDrawer((prev) => ({ ...prev, [name]: action }));
@@ -51,17 +67,7 @@ const NurseList = () => {
     };
 
     useEffect(() => {
-        fetch('http://localhost:3001/nurse', {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            }
-          })
-          .then(response => response.json())
-          .then(data => {
-            console.log(data)
-            setRows(data)})
-          .catch(error => console.error('Error fetching data:', error));
+        fetchNurseList();
       }, []);
 
     return (
