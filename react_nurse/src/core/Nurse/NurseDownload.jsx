@@ -1,26 +1,24 @@
-import React, { useState } from 'react';
-import {
-  Button,
-  Stack,
-  Popover,
-} from '@mui/material';
-import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import React, { useState } from "react";
+import { Button, Stack, Popover } from "@mui/material";
+import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 
-const NurseDownload = () => {
+const NurseDownload = ({ excelDownload, csvDownload }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
   const handleExcel = () => {
     setAnchorEl(null);
+    excelDownload();
   };
   const handleCSV = () => {
     setAnchorEl(null);
+    csvDownload();
   };
 
   return (
     <>
       <Button
-        sx={{ background: '#efefef', marginLeft: 'auto' }}
+        sx={{ background: "#efefef", marginLeft: "auto" }}
         startIcon={<FileDownloadOutlinedIcon />}
         onClick={(e) => setAnchorEl(e?.currentTarget)}
       >
@@ -31,24 +29,24 @@ const NurseDownload = () => {
         anchorEl={anchorEl}
         onClose={() => setAnchorEl(null)}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
+          vertical: "bottom",
+          horizontal: "left",
         }}
         PaperProps={{
           style: {
-            padding: '8px 0',
-            marginTop: '4px',
-            borderRadius: 8
+            padding: "8px 0",
+            marginTop: "4px",
+            borderRadius: 8,
           },
         }}
       >
         <Stack alignItems="cenetr" gap="8px">
           <Button
             sx={{
-              padding: '2px 12px',
-              justifyContent: 'start',
-              textTransform: 'unset',
-              color: '#000',
+              padding: "2px 12px",
+              justifyContent: "start",
+              textTransform: "unset",
+              color: "#000",
             }}
             onClick={handleExcel}
           >
@@ -56,10 +54,10 @@ const NurseDownload = () => {
           </Button>
           <Button
             sx={{
-              padding: '2px 12px',
-              justifyContent: 'start',
-              textTransform: 'unset',
-              color: '#000',
+              padding: "2px 12px",
+              justifyContent: "start",
+              textTransform: "unset",
+              color: "#000",
             }}
             onClick={handleCSV}
           >
